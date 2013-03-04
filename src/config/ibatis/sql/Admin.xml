@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Admin">
+	
+	<select id="queryNonSelfAllUser" parameterClass="String" resultClass="user">
+		<![CDATA[
+			select * from user where loginname != #loginname#
+		]]>
+	</select>
+	
+	<delete id="deleteUserByUserid" parameterClass="Integer">
+		<![CDATA[
+			delete u, r from user u left join report r on u.userId=r.userId where u.userId=#userId#
+		]]>
+	</delete>
+	
+</sqlMap>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="User">
+	
+	<insert id="register" parameterClass="user">
+		<![CDATA[
+			insert into user(loginname, password, username, department, post) values(#loginname#,#password#,#username#,#department#,#post#)
+		]]>
+	</insert>
+
+	<select id="queryUserByLoginname" parameterClass="String" resultClass="user">
+		<![CDATA[
+			select * from user u where u.loginname = #loginname#
+		]]>
+	</select>
+	
+	<select id="login" parameterClass="user" resultClass="user">
+		<![CDATA[
+			select * from user u where u.loginname = #loginname# and u.password = #password#
+		]]>
+	</select>
+	
+</sqlMap>

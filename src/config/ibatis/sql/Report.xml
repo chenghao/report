@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Report">
+	
+	<select id="queryReportByUseridAndUniqueFlag" parameterClass="Map" resultClass="report">
+		<![CDATA[
+			select * from report r where r.userId = #userId# and r.uniqueFlag = #uniqueFlag#
+		]]>
+	</select>
+	
+	<insert id="saveReport" parameterClass="report" >
+		<![CDATA[
+			insert into report(assess,nextWeekWorkPlan,nextWeekFinishTime,nextWeekContent,nextWeekTarget,thisWeekWorkPlan,thisWeekFinishTime,thisWeekContent,thisWeekTarget,finishStatus,finishRatio,uniqueFlag,userId)
+			values(#assess#,#nextWeekWorkPlan#,#nextWeekFinishTime#,#nextWeekContent#,#nextWeekTarget#,#thisWeekWorkPlan#,#thisWeekFinishTime#,#thisWeekContent#,#thisWeekTarget#,#finishStatus#,#finishRatio#,#uniqueFlag#,#userId#)
+		]]>
+	</insert>
+	
+	<select id="chooseUniqueFlag" parameterClass="Integer" resultClass="report">
+		<![CDATA[
+			select distinct uniqueFlag from report where userId = #userId#
+		]]>
+	</select>
+	
+	<update id="updateShowReport" parameterClass="report" >
+		<![CDATA[
+			update report set assess=#assess#, nextWeekWorkPlan=#nextWeekWorkPlan#, nextWeekFinishTime=#nextWeekFinishTime#, nextWeekContent=#nextWeekContent#, nextWeekTarget=#nextWeekTarget#, thisWeekWorkPlan=#thisWeekWorkPlan#, thisWeekFinishTime=#thisWeekFinishTime#, thisWeekContent=#thisWeekContent#, thisWeekTarget=#thisWeekTarget#, finishStatus=#finishStatus#, finishRatio=#finishRatio#
+			where reportId=#reportId#
+		]]>
+	</update>
+	
+	<delete id="deleteReportByReportid" parameterClass="String">
+		<![CDATA[
+			delete from report where reportId in ($reportIds$)
+		]]>
+	</delete>
+</sqlMap>
